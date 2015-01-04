@@ -20,8 +20,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     ofVec2f startPos, endPos, cPos;
-    int fw, fh, gap, imgNum;
-    float angle, step;
+    int fw, fh, gap, distance, imgNum, step;
     ofImage myImg;
 		
 };

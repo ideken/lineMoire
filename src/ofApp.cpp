@@ -2,43 +2,43 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetFrameRate(30);
+    ofSetFrameRate(60);
+    ofSetCircleResolution(128);
     ofBackground(255);
+    ofNoFill();
     fw = ofGetWidth();
     fh = ofGetHeight();
     cPos.set(fw/2, fh/2);
-    gap = 8;
-    angle = 20;
-    step = -1;
+    gap = 10;
+    distance = 0;
+    step = 1;
     imgNum = 0;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    angle += step;
+    distance += step;
     imgNum++;
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(0,150);
-    for (int i = 0; i < fh; i+=gap) {
-        ofLine(0, i, fw, i);
+    ofTranslate(cPos);
+    ofSetColor(0,200);
+    for (int i = 0; i < fh/2; i+=gap) {
+        ofCircle(0, 0, i);
     }
-    
-    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-    ofRotateZ(angle);
-    if (angle < 0) {
+    for (int i = 0; i < fh/2; i+=gap){
+        ofCircle(distance, 0, i);
+    }
+    if (abs(distance) > fh/4) {
         step *= -1;
     }
-    for (int i = 0; i < fh; i+=gap) {
-    ofLine(-cPos.x, i - cPos.y, fw + cPos.x, i - cPos.y);
-    }
-    if(imgNum < 40) {
-        myImg.grabScreen(0, 0, fw, fh);
-        myImg.saveImage("./capture/" + ofToString(imgNum, 4, '0') + ".png");
-    }
-    if(imgNum == 40){ofExit();}
+ //     if(imgNum < 40) {
+ //       myImg.grabScreen(0, 0, fw, fh);
+ //       myImg.saveImage("./capture/" + ofToString(imgNum, 4, '0') + ".png");
+ //   }
+ //   if(imgNum == 40){ofExit();}
 }
 
 //--------------------------------------------------------------
