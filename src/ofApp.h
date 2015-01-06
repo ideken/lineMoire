@@ -19,9 +19,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-    ofVec2f startPos, endPos, cPos;
-    int fw, fh, gap, imgNum;
-    float angle, step;
+    ofVec2f startPos, endPos, cPos, slideCenter;
+    int fw, fh, gap, imgNum, p, g;
+    float step, theta, b;
     ofImage myImg;
 		
 };

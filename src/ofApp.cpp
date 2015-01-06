@@ -4,41 +4,56 @@
 void ofApp::setup(){
     ofSetFrameRate(30);
     ofBackground(255);
+    ofSetCircleResolution(64);
     fw = ofGetWidth();
     fh = ofGetHeight();
     cPos.set(fw/2, fh/2);
-    gap = 8;
-    angle = 20;
-    step = -1;
+    gap = 10;
+    step = 8;
     imgNum = 0;
+    slideCenter.set(0, 0);
+    p = 200;
+    g = 420;
+    b = sqrt(g*g/4 - p*p);
+    
+    ofNoFill();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    angle += step;
+    
+    slideCenter.x += step;
     imgNum++;
+    theta += 4;
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(0,150);
-    for (int i = 0; i < fh; i+=gap) {
-        ofLine(0, i, fw, i);
+    ofNoFill();
+    ofSetColor(0,200);
+    ofTranslate(cPos);
+    for (int i = 0; i < fw; i+=gap) {
+        ofCircle(-p, 0,i);
     }
     
-    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-    ofRotateZ(angle);
-    if (angle < 0) {
-        step *= -1;
+    for (int i = 0; i < fw; i+=gap) {
+        ofCircle(p, 0, i);
     }
-    for (int i = 0; i < fh; i+=gap) {
-    ofLine(-cPos.x, i - cPos.y, fw + cPos.x, i - cPos.y);
+    ofFill();
+    ofCircle(g*cos(PI * theta/180)/2, b*sin(PI * theta/180), 3);
+    if (theta > 360) {
+        g += 10;
+        b = sqrt(g*g/4 - p*p);
+        theta = 0;
     }
-    if(imgNum < 40) {
+    
+
+    
+    if(imgNum < 90) {
         myImg.grabScreen(0, 0, fw, fh);
         myImg.saveImage("./capture/" + ofToString(imgNum, 4, '0') + ".png");
     }
-    if(imgNum == 40){ofExit();}
+    if(imgNum == 90){ofExit();}
 }
 
 //--------------------------------------------------------------
